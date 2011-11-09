@@ -13,14 +13,13 @@ Use the following function:
 
 {% highlight coffeescript %}
 type = (obj) ->
-  if obj == undefined or obj == null
+  unless obj?
     return String obj
-  classToType = new Object
+  classToType = {}
   for name in "Boolean Number String Function Array Date RegExp".split(" ")
-    classToType["[object " + name + "]"] = name.toLowerCase()
+    classToType["[object " + name + "]"] = name.toLowerCase() 
   myClass = Object.prototype.toString.call obj
-  if myClass of classToType
-    return classToType[myClass]
+  return classToType[myClass] if myClass of classToType
   return "object"
 {% endhighlight %}
 
